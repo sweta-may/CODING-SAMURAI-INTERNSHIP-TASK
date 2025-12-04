@@ -21,6 +21,18 @@ class NumberGuessingGame:
 
         self.create_welcome_screen()
 
+        def create_welcome_screen(self):
+            for widget in self.root.winfo_children():
+                widget.destroy()
+            title = tk.Label(
+                self.root,
+                text="🎮 Number Guessing Game 🎮",
+                font=("Arial", 22, "bold"),
+                bg="#1e1e2e",
+                fg="#cdd6f4"
+            )
+            title.pack(pady=30)
+
 def check_answer(user_guess, actual_answer, turns):
     if user_guess == actual_answer:
         print(f"Your guess is Correct! I was thinking of {user_guess}")
