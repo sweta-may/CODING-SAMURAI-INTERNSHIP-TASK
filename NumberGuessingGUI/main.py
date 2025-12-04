@@ -1,7 +1,25 @@
 from random import randint
+from tkinter import messagebox
+import tkinter as tk
 
 EASY_LEVEL_TURNS = 10
 HARD_LEVEL_TURNS = 5
+
+
+class NumberGuessingGame:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Number Guessing Game")
+        self.root.geometry("450x500")
+        self.root.resizable(False, False)
+        self.root.configure(bg="#1e1e2e")
+
+        self.answer = None
+        self.turns = None
+        self.guess = 0
+        self.game_started = False
+
+        self.create_welcome_screen()
 
 def check_answer(user_guess, actual_answer, turns):
     if user_guess == actual_answer:
