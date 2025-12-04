@@ -52,6 +52,34 @@ class NumberGuessingGame:
             )
             difficulty_label.pack(pady=20)
 
+            easy_btn = tk.Button(
+                self.root,
+                text=f"🟢 EASY\n({EASY_LEVEL_TURNS} turns)",
+                font=("Arial", 14, "bold"),
+                bg="#a6e3a1",
+                fg="#1e1e2e",
+                command=lambda: self.start_game("easy"),
+                cursor="hand2",
+                width=15,
+                height=3,
+                bd=0
+            )
+            easy_btn.pack(pady=10)
+
+            hard_btn = tk.Button(
+                self.root,
+                text=f"🔴 HARD\n({HARD_LEVEL_TURNS} turns)",
+                font=("Arial", 14, "bold"),
+                bg="#f38ba8",
+                fg="#1e1e2e",
+                command=lambda: self.start_game("hard"),
+                cursor="hand2",
+                width=15,
+                height=3,
+                bd=0
+            )
+            hard_btn.pack(pady=10)
+
 def check_answer(user_guess, actual_answer, turns):
     if user_guess == actual_answer:
         print(f"Your guess is Correct! I was thinking of {user_guess}")
