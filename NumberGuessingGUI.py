@@ -80,13 +80,6 @@ class NumberGuessingGame:
         )
         hard_btn.pack(pady=10)
 
-        def start_game(self, level):
-            self.answer = randint(1, 100)
-            self.turns = EASY_LEVEL_TURNS if level == "easy" else HARD_LEVEL_TURNS
-            self.guess = 0
-            self.game_started = True
-            self.create_game_screen()
-
     def create_game_screen(self):
 
         for widget in self.root.winfo_children():
@@ -246,6 +239,17 @@ class NumberGuessingGame:
                 text="❌ Invalid input!\nPlease enter a valid number",
                 fg="#f38ba8"
             )
+
+    def start_game(self, param):
+
+        self.answer = randint(1, 100)
+        self.turns = EASY_LEVEL_TURNS if param == "easy" else HARD_LEVEL_TURNS
+
+        self.guess = 0
+        self.game_started = True
+
+        self.create_game_screen()
+
 
 if __name__ == "__main__":
     root = tk.Tk()
