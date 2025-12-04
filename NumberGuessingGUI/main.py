@@ -80,6 +80,13 @@ class NumberGuessingGame:
             )
             hard_btn.pack(pady=10)
 
+            def start_game(self, level):
+                self.answer = randint(1, 100)
+                self.turns = EASY_LEVEL_TURNS if level == "easy" else HARD_LEVEL_TURNS
+                self.guess = 0
+                self.game_started = True
+                self.create_game_screen()
+
 def check_answer(user_guess, actual_answer, turns):
     if user_guess == actual_answer:
         print(f"Your guess is Correct! I was thinking of {user_guess}")
