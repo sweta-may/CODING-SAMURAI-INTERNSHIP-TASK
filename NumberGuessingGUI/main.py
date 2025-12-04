@@ -33,6 +33,25 @@ class NumberGuessingGame:
             )
             title.pack(pady=30)
 
+            desc = tk.Label(
+                self.root,
+                text="I'm thinking of a number between 1-100\nCan you guess it?",
+                font=("Arial", 13),
+                bg="#1e1e2e",
+                fg="#bac2de",
+                justify="center"
+            )
+            desc.pack(pady=20)
+
+            difficulty_label = tk.Label(
+                self.root,
+                text="Choose Difficulty Level:",
+                font=("Arial", 14, "bold"),
+                bg="#1e1e2e",
+                fg="#cdd6f4"
+            )
+            difficulty_label.pack(pady=20)
+
 def check_answer(user_guess, actual_answer, turns):
     if user_guess == actual_answer:
         print(f"Your guess is Correct! I was thinking of {user_guess}")
