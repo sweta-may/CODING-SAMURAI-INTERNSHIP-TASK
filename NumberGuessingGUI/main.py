@@ -87,117 +87,130 @@ class NumberGuessingGame:
                 self.game_started = True
                 self.create_game_screen()
 
-            def create_game_screen(self):
+        def create_game_screen(self):
 
-                for widget in self.root.winfo_children():
-                    widget.destroy()
+            for widget in self.root.winfo_children():
+                widget.destroy()
 
 
-                title = tk.Label(
-                    self.root,
-                    text="Number Guessing Game",
-                    font=("Arial", 20, "bold"),
-                    bg="#1e1e2e",
-                    fg="#cdd6f4"
+            title = tk.Label(
+                self.root,
+                text="Number Guessing Game",
+                font=("Arial", 20, "bold"),
+                bg="#1e1e2e",
+                fg="#cdd6f4"
+            )
+            title.pack(pady=20)
+
+
+            self.turns_label = tk.Label(
+                self.root,
+                text=f"You have {self.turns} turns left",
+                font=("Arial", 14, "bold"),
+                bg="#1e1e2e",
+                fg="#f9e2af"
+            )
+            self.turns_label.pack(pady=10)
+
+
+            range_label = tk.Label(
+                self.root,
+                text="Number is between 1-100",
+                font=("Arial", 11),
+                bg="#1e1e2e",
+                fg="#bac2de"
+            )
+            range_label.pack(pady=5)
+
+
+            input_frame = tk.Frame(self.root, bg="#1e1e2e")
+            input_frame.pack(pady=30)
+
+            input_label = tk.Label(
+                input_frame,
+                text="Your Guess:",
+                font=("Arial", 13),
+                bg="#1e1e2e",
+                fg="#cdd6f4"
+            )
+            input_label.pack(side="left", padx=10)
+
+            self.guess_entry = tk.Entry(
+                input_frame,
+                font=("Arial", 16),
+                width=10,
+                justify="center",
+                bd=2,
+                relief="solid"
+            )
+            self.guess_entry.pack(side="left", padx=10)
+            self.guess_entry.bind("<Return>", lambda e: self.make_guess())
+            self.guess_entry.focus()
+
+
+            self.guess_button = tk.Button(
+                self.root,
+                text="Guess!",
+                font=("Arial", 14, "bold"),
+                bg="#89b4fa",
+                fg="#1e1e2e",
+                command=self.make_guess,
+                cursor="hand2",
+                width=12,
+                height=2,
+                bd=0
+            )
+            self.guess_button.pack(pady=10)
+
+
+            self.feedback_label = tk.Label(
+                self.root,
+                text="",
+                font=("Arial", 15, "bold"),
+                bg="#1e1e2e",
+                fg="#fab387",
+                wraplength=400,
+                justify="center",
+                height=3
+            )
+            self.feedback_label.pack(pady=20)
+
+            new_game_btn = tk.Button(
+                self.root,
+                text="🔄 New Game",
+                font=("Arial", 11),
+                bg="#585b70",
+                fg="#cdd6f4",
+                command=self.create_welcome_screen,
+                cursor="hand2",
+                bd=0,
+                padx=20,
+                pady=8
+            )
+            new_game_btn.pack(pady=10)
+
+        def check_answer(self, user_guess, actual_answer, turns):
+            if user_guess == actual_answer:
+                self.feedback_label.config(
+                    text=f"🎉 Your guess is Correct!\nI was thinking of {user_guess}",
+                    fg="#a6e3a1"
                 )
-                title.pack(pady=20)
-
-
-                self.turns_label = tk.Label(
-                    self.root,
-                    text=f"You have {self.turns} turns left",
-                    font=("Arial", 14, "bold"),
-                    bg="#1e1e2e",
-                    fg="#f9e2af"
+                self.guess_entry.config(state="disabled")
+                self.guess_button.config(state="disabled")
+                messagebox.showinfo("Winner! 🎉", f"Congratulations!\nYou guessed the correct number: {user_guess}")
+                return turns
+            elif user_guess < actual_answer:
+                self.feedback_label.config(
+                    text="📈 Too low!\nTry a higher number",
+                    fg="#fab387"
                 )
-                self.turns_label.pack(pady=10)
-
-
-                range_label = tk.Label(
-                    self.root,
-                    text="Number is between 1-100",
-                    font=("Arial", 11),
-                    bg="#1e1e2e",
-                    fg="#bac2de"
+                return turns - 1
+            else:
+                self.feedback_label.config(
+                    text="📉 Too high!\nTry a lower number",
+                    fg="#fab387"
                 )
-                range_label.pack(pady=5)
-
-
-                input_frame = tk.Frame(self.root, bg="#1e1e2e")
-                input_frame.pack(pady=30)
-
-                input_label = tk.Label(
-                    input_frame,
-                    text="Your Guess:",
-                    font=("Arial", 13),
-                    bg="#1e1e2e",
-                    fg="#cdd6f4"
-                )
-                input_label.pack(side="left", padx=10)
-
-                self.guess_entry = tk.Entry(
-                    input_frame,
-                    font=("Arial", 16),
-                    width=10,
-                    justify="center",
-                    bd=2,
-                    relief="solid"
-                )
-                self.guess_entry.pack(side="left", padx=10)
-                self.guess_entry.bind("<Return>", lambda e: self.make_guess())
-                self.guess_entry.focus()
-
-
-                self.guess_button = tk.Button(
-                    self.root,
-                    text="Guess!",
-                    font=("Arial", 14, "bold"),
-                    bg="#89b4fa",
-                    fg="#1e1e2e",
-                    command=self.make_guess,
-                    cursor="hand2",
-                    width=12,
-                    height=2,
-                    bd=0
-                )
-                self.guess_button.pack(pady=10)
-
-
-                self.feedback_label = tk.Label(
-                    self.root,
-                    text="",
-                    font=("Arial", 15, "bold"),
-                    bg="#1e1e2e",
-                    fg="#fab387",
-                    wraplength=400,
-                    justify="center",
-                    height=3
-                )
-                self.feedback_label.pack(pady=20)
-
-                new_game_btn = tk.Button(
-                    self.root,
-                    text="🔄 New Game",
-                    font=("Arial", 11),
-                    bg="#585b70",
-                    fg="#cdd6f4",
-                    command=self.create_welcome_screen,
-                    cursor="hand2",
-                    bd=0,
-                    padx=20,
-                    pady=8
-                )
-                new_game_btn.pack(pady=10)
-
-def check_answer(user_guess, actual_answer, turns):
-    if user_guess == actual_answer:
-        print(f"Your guess is Correct! I was thinking of {user_guess}")
-    elif user_guess < actual_answer:
-        print("Too low")
-        return turns-1
-    else:
-        print("Too high")
-        return turns-1
+                return turns - 1
 
 def difficulty_level():
     level = int(input("Enter the difficulty level: "))
